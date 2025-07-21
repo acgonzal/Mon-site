@@ -19,7 +19,7 @@
       transform: translate(-50%, -50%) scale(1) rotate(360deg);
     }
 
-    /* Styles bouton */
+    /* Styles bouton musique */
     button#play-sound-btn {
       position: fixed;
       bottom: 20px;
@@ -42,13 +42,31 @@
       z-index: 1;
     }
 
-    /* Petite image style */
     .moving-image {
       position: absolute;
       width: 80px;
       user-select: none;
       pointer-events: none;
       z-index: 1;
+    }
+
+    /* Sondage */
+    #sondage {
+      margin-top: 50px;
+    }
+    #sondage button {
+      margin-right: 10px;
+      padding: 10px 20px;
+      font-size: 1em;
+      border: 2px solid #444;
+      background-color: #eee;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #resultat {
+      margin-top: 20px;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -67,7 +85,15 @@
       <div id="container-images"></div>
 
       <h2>À propos de moi</h2>
-      <p>Mon chien est le roi du monde vous pouvez pas tester</p>
+      <p>Mon chien est le roi du monde, vous pouvez pas tester.</p>
+
+      <section id="sondage">
+        <h2>Combien de dents lui reste-t-il ?</h2>
+        <button onclick="vote('7')">7</button>
+        <button onclick="vote('3')">3</button>
+        <button onclick="vote('1')">1</button>
+        <div id="resultat"></div>
+      </section>
     </section>
   </main>
 
@@ -98,13 +124,13 @@
       }, 1500);
     });
 
-    // Bouton pour lancer la musique manuellement
+    // Bouton manuel pour lancer le son
     document.getElementById('play-sound-btn').addEventListener('click', function () {
       const danSound = document.getElementById('dan-sound');
       danSound.play();
     });
 
-    // Création et animation des petites images qui bougent partout
+    // Petites images animées
     const container = document.getElementById('container-images');
     const maxX = container.clientWidth;
     const maxY = container.clientHeight;
@@ -138,9 +164,31 @@
       }
       move();
     }
+
+    // Sondage
+    let votes = {
+      "7": 0,
+      "3": 0,
+      "1": 0
+    };
+
+    function vote(choix) {
+      votes[choix]++;
+      const totalVotes = votes["7"] + votes["3"] + votes["1"];
+
+      const percent = (val) => Math.round((val / totalVotes) * 100) + "%";
+
+      document.getElementById("resultat").innerHTML = `
+        Résultats du vote :<br>
+        🐾 7 : ${percent(votes["7"])}<br>
+        👑 3 : ${percent(votes["3"])}<br>
+        🦷 1 : ${percent(votes["1"])}
+      `;
+    }
   </script>
 </body>
 </html>
+
 
 
 

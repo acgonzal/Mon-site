@@ -84,3 +84,22 @@ footer {
   opacity: 1;
   transform: scale(1) rotate(720deg); /* 2 tours */
 }
+
+#sondage {
+  text-align: center;
+  margin: 50px auto;
+}
+
+#sondage button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 1em;
+  background-color: #f0e68c;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#sondage button:hover {
+  background-color: #ffe;
+}
