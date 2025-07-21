@@ -4,6 +4,35 @@
   <meta charset="UTF-8">
   <title>Mon chien est roi</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Styles directement intégrés */
+
+    #dan-container {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      pointer-events: none;
+    }
+
+    #dan-image {
+      width: 0;
+      opacity: 0;
+      transform: scale(0) rotate(0deg);
+      transition: transform 2s ease-out, opacity 2s ease-out;
+    }
+
+    #dan-image.show {
+      width: 900px;
+      opacity: 1;
+      transform: scale(1) rotate(720deg);
+    }
+
+    .moving-image {
+      pointer-events: none;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -28,7 +57,14 @@
     <p>© 2025 MonSiteWeb</p>
   </footer>
 
-  <!-- Script déplacé à l’intérieur du <body>, à la fin -->
+  <!-- Image centrale + son -->
+  <div id="dan-container">
+    <img id="dan-image" src="danou.jpg" alt="Danou majestueux">
+  </div>
+
+  <audio id="dan-sound" src="woof.mp3"></audio>
+
+  <!-- Script complet -->
   <script>
     const container = document.getElementById('container-images');
     const maxX = container.clientWidth;
@@ -65,7 +101,21 @@
       }
       move();
     }
+
+    // Apparition de la grosse image + lecture son
+    window.addEventListener('load', function () {
+      const danImage = document.getElementById('dan-image');
+      const danSound = document.getElementById('dan-sound');
+
+      setTimeout(() => {
+        danImage.classList.add('show');
+        danSound.play().catch(() => {
+          console.log("Lecture du son bloquée. L'utilisateur doit interagir d'abord.");
+        });
+      }, 1500);
+    });
   </script>
 </body>
 </html>
+
 
