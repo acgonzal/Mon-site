@@ -17,7 +17,8 @@
 
   <main>
     <section>
-      <img src="danou.jpg" alt="Mon image" class="rotating-image">
+      <div id="container-images" style="position:relative; width:100vw; height:100vh;"></div>
+
       <h2>À propos de moi</h2>
       <p>Mon chien est le roi du monde vous pouvez pas tester</p>
     </section>
@@ -26,5 +27,45 @@
   <footer>
     <p>© 2025 MonSiteWeb</p>
   </footer>
+
+  <!-- Script déplacé à l’intérieur du <body>, à la fin -->
+  <script>
+    const container = document.getElementById('container-images');
+    const maxX = container.clientWidth;
+    const maxY = container.clientHeight;
+    const numberOfImages = 30;
+
+    for (let i = 0; i < numberOfImages; i++) {
+      const img = document.createElement('img');
+      img.src = 'danou.jpg';
+      img.className = 'moving-image';
+      img.style.position = 'absolute';
+      img.style.width = '80px';
+      img.style.left = Math.random() * maxX + 'px';
+      img.style.top = Math.random() * maxY + 'px';
+      container.appendChild(img);
+
+      let dx = (Math.random() - 0.5) * 3;
+      let dy = (Math.random() - 0.5) * 3;
+
+      function move() {
+        let x = parseFloat(img.style.left);
+        let y = parseFloat(img.style.top);
+
+        x += dx;
+        y += dy;
+
+        if (x < 0 || x > maxX - img.width) dx = -dx;
+        if (y < 0 || y > maxY - img.height) dy = -dy;
+
+        img.style.left = x + 'px';
+        img.style.top = y + 'px';
+
+        requestAnimationFrame(move);
+      }
+      move();
+    }
+  </script>
 </body>
 </html>
+
