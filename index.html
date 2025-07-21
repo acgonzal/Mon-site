@@ -1,36 +1,54 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Mon chien est roi</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
   <style>
-    /* Styles directement intégrés */
-
-    #dan-container {
+    /* Animation grosse image */
+    #dan-image {
+      width: 900px;
       position: fixed;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 9999;
-      pointer-events: none;
+      transform: translate(-50%, -50%) scale(0) rotate(0deg);
+      transition: transform 2s ease;
+      z-index: 999;
     }
-
-    #dan-image {
-      width: 0;
-      opacity: 0;
-      transform: scale(0) rotate(0deg);
-      transition: transform 2s ease-out, opacity 2s ease-out;
-    }
-
     #dan-image.show {
-      width: 900px;
-      opacity: 1;
-      transform: scale(1) rotate(720deg);
+      transform: translate(-50%, -50%) scale(1) rotate(360deg);
     }
 
+    /* Styles bouton */
+    button#play-sound-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      padding: 10px 20px;
+      font-size: 1.2em;
+      background-color: #ffcc00;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    /* Container des petites images */
+    #container-images {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    /* Petite image style */
     .moving-image {
+      position: absolute;
+      width: 80px;
+      user-select: none;
       pointer-events: none;
+      z-index: 1;
     }
   </style>
 </head>
@@ -46,7 +64,7 @@
 
   <main>
     <section>
-      <div id="container-images" style="position:relative; width:100vw; height:100vh;"></div>
+      <div id="container-images"></div>
 
       <h2>À propos de moi</h2>
       <p>Mon chien est le roi du monde vous pouvez pas tester</p>
@@ -57,15 +75,36 @@
     <p>© 2025 MonSiteWeb</p>
   </footer>
 
-  <!-- Image centrale + son -->
-  <div id="dan-container">
-    <img id="dan-image" src="danou.jpg" alt="Danou majestueux">
-  </div>
+  <!-- Grosse image animée -->
+  <img id="dan-image" src="danou.jpg" alt="Dan grosse image" />
 
-  <audio id="dan-sound" src="stardan.mp3"></audio>
+  <!-- Audio -->
+  <audio id="dan-sound" src="stardan.mp3" preload="auto"></audio>
 
-  <!-- Script complet -->
+  <!-- Bouton lecture son -->
+  <button id="play-sound-btn">🎵 Lancer la musique de Dan</button>
+
   <script>
+    // Apparition de la grosse image + lecture son après 1.5s
+    window.addEventListener('load', function () {
+      const danImage = document.getElementById('dan-image');
+      const danSound = document.getElementById('dan-sound');
+
+      setTimeout(() => {
+        danImage.classList.add('show');
+        danSound.play().catch(() => {
+          console.log("Lecture du son bloquée. L'utilisateur doit interagir d'abord.");
+        });
+      }, 1500);
+    });
+
+    // Bouton pour lancer la musique manuellement
+    document.getElementById('play-sound-btn').addEventListener('click', function () {
+      const danSound = document.getElementById('dan-sound');
+      danSound.play();
+    });
+
+    // Création et animation des petites images qui bougent partout
     const container = document.getElementById('container-images');
     const maxX = container.clientWidth;
     const maxY = container.clientHeight;
@@ -75,8 +114,6 @@
       const img = document.createElement('img');
       img.src = 'danou.jpg';
       img.className = 'moving-image';
-      img.style.position = 'absolute';
-      img.style.width = '80px';
       img.style.left = Math.random() * maxX + 'px';
       img.style.top = Math.random() * maxY + 'px';
       container.appendChild(img);
@@ -101,21 +138,9 @@
       }
       move();
     }
-
-    // Apparition de la grosse image + lecture son
-    window.addEventListener('load', function () {
-      const danImage = document.getElementById('dan-image');
-      const danSound = document.getElementById('dan-sound');
-
-      setTimeout(() => {
-        danImage.classList.add('show');
-        danSound.play().catch(() => {
-          console.log("Lecture du son bloquée. L'utilisateur doit interagir d'abord.");
-        });
-      }, 1500);
-    });
   </script>
 </body>
 </html>
+
 
 
