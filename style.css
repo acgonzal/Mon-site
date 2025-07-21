@@ -51,3 +51,9 @@ footer {
   animation: rotate 4s linear infinite;
 }
 
+.rotating-image {
+  width: 150px;  /* adapte la taille comme tu veux */
+  height: auto;  /* conserve les proportions */
+  animation: rotate 4s linear infinite;
+}
+
