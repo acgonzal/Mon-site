@@ -121,7 +121,7 @@
         danSound.play().catch(() => {
           console.log("Lecture du son bloquée. L'utilisateur doit interagir d'abord.");
         });
-      }, 1500);
+      }, 500);
     });
 
     // Bouton manuel pour lancer le son
@@ -180,8 +180,8 @@
 
       document.getElementById("resultat").innerHTML = `
         Résultats du vote :<br>
-        🐾 7 : ${percent(votes["7"])}<br>
-        👑 3 : ${percent(votes["3"])}<br>
+        🦷 7 : ${percent(votes["7"])}<br>
+        🦷 3 : ${percent(votes["3"])}<br>
         🦷 1 : ${percent(votes["1"])}
       `;
     }
