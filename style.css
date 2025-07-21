@@ -73,11 +73,17 @@ footer {
 }
 
 #dan-image {
-  width: 0;
-  opacity: 0;
-  transform: scale(0) rotate(0deg);
-  transition: transform 1.5s ease-out, opacity 1.5s ease-out;
+  width: 900px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0) rotate(0deg);
+  transition: transform 2s ease;
+  z-index: 999;
+  border-radius: 50px; /* bords arrondis */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); /* ombrage */
 }
+
 
 #dan-image.show {
   width: 900px;
@@ -102,4 +108,9 @@ footer {
 
 #sondage button:hover {
   background-color: #ffe;
+}
+
+#dan-image.hide {
+  opacity: 0;
+  transition: opacity 2s ease;
 }
